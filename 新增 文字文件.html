@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>滄浪科技員工出勤系統</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="w-full max-w-md p-6 bg-white shadow-lg rounded-2xl">
+        <h2 class="text-2xl font-semibold text-center text-gray-700">滄浪科技員工出勤系統</h2>
+        <div class="mt-6 space-y-4">
+            <div class="relative">
+                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">&#128100;</span>
+                <input type="text" id="username" placeholder="帳號" class="w-full pl-10 p-2 border rounded-lg" />
+            </div>
+            <div class="relative">
+                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">&#128274;</span>
+                <input type="password" id="password" placeholder="密碼" class="w-full pl-10 p-2 border rounded-lg" />
+            </div>
+            <button onclick="login()" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">登入</button>
+        </div>
+        <p class="mt-4 text-sm text-center text-gray-500">忘記密碼？請聯繫管理員</p>
+    </div>
+
+    <script>
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username && password) {
+                window.location.href = 'attendance.html'; // 跳轉至打卡系統頁面
+            } else {
+                alert('請輸入帳號和密碼');
+            }
+        }
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>滄浪科技員工打卡系統</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <script>
+        function updateTime() {
+            const now = new Date();
+            document.getElementById("current-time").textContent = now.toLocaleString();
+        }
+        
+        function punch(type) {
+            alert(`${type}打卡成功！`);
+        }
+        
+        function requestCorrection() {
+            alert("補打卡申請已提交，請等待審核。");
+        }
+        
+        function requestLeave() {
+            const leaveDate = document.getElementById("leave-date").value;
+            const leaveReason = document.getElementById("leave-reason").value;
+            const leaveAgent = document.getElementById("leave-agent").value;
+            
+            if (leaveDate && leaveReason && leaveAgent) {
+                alert(`請假申請已提交\n日期：${leaveDate}\n原因：${leaveReason}\n代理人：${leaveAgent}`);
+            } else {
+                alert("請完整填寫請假資訊");
+            }
+        }
+        
+        setInterval(updateTime, 1000);
+    </script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="w-full max-w-md p-6 bg-white shadow-lg rounded-2xl text-center">
+        <h2 class="text-2xl font-semibold text-gray-700">滄浪科技員工打卡系統</h2>
+        <p class="mt-4 text-lg">員工姓名：<span class="font-semibold">Sophie</span></p>
+        <p class="mt-2 text-lg">當前時間：<span id="current-time" class="font-semibold"></span></p>
+        <div class="mt-6 space-y-4">
+            <button onclick="punch('上班')" class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600">上班打卡</button>
+            <button onclick="punch('下班')" class="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600">下班打卡</button>
+            <button onclick="requestCorrection()" class="w-full bg-yellow-500 text-white py-2 rounded-lg hover:bg-yellow-600">補打卡申請</button>
+            
+            <div class="bg-gray-100 p-4 rounded-lg">
+                <h3 class="text-lg font-semibold">請假申請</h3>
+                <input type="date" id="leave-date" class="w-full p-2 border rounded-lg mt-2" placeholder="請選擇請假日期" />
+                <input type="text" id="leave-reason" class="w-full p-2 border rounded-lg mt-2" placeholder="請假原因" />
+                <input type="text" id="leave-agent" class="w-full p-2 border rounded-lg mt-2" placeholder="代理人姓名" />
+                <button onclick="requestLeave()" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 mt-2">提交請假申請</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
